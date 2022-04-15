@@ -3,15 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="https://logospng.org/download/uol/logo-uol-icon-512.png" >
     <title>Bate-Papo UOL</title>
     <link rel="stylesheet" href="./reset.css">
     <link rel="stylesheet" href="./style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header></header>
-    <main></main>
-    <footer></footer>
+    <header>
+        <img src="./images/logo.png" >
+        <ion-icon name="people-sharp"></ion-icon>
+    </header>
+    <main>
+        <div class="login"><h1><span class="time">(09:21:45)</span>  <span class="person">João</span> entra na sala...</h1></div>
+        <div class="reserved"><h1><span class="time">(09:22:45)</span>  <span class="person">João</span> reservadamente para <span class="person">Maria</span>:  Oi gatinha quer tc?</h1></div>
+        <div class="message"><h1><span class="time">(09:24:45)</span>  <span class="person">Maria</span> para <span class="person">João</span>:  Oi João :)</h1></div>
+    </main>
 
+
+    <footer>
+        <div class="sendMessage">
+            <input type="text" placeholder="Escreva aqui...">
+            <ion-icon name="paper-plane-outline"></ion-icon>
+        </div>
+        <div class="sendToReservation"></div>
+
+    </footer>
+
+
+
+    <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
     <script src="./scripts.js"></script>
 </body>
 </html>
