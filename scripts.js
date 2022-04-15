@@ -1,4 +1,5 @@
-let user = 'luffy'; //COM PROMPT E DEPOIS FAZER EM OUTRA TELA (BONUS)
+const user = 'luffy'; //COM PROMPT E DEPOIS FAZER EM OUTRA TELA (BONUS)
+const userObject = {name: `${user}`};
 //MENSAGEM: 
 
 //`<div class="login"><h1><span class="time">(${TEMPO})</span>  <span class="person">${FALANTE}</span> entra na sala...</h1></div>`
@@ -6,14 +7,11 @@ let user = 'luffy'; //COM PROMPT E DEPOIS FAZER EM OUTRA TELA (BONUS)
 //`<div class="message"><h1><span class="time">(${TEMPO})</span>  <span class="person">${FALANTE}</span> para <span class="person">${RECEBIDO}</span>:  ${MENSAGEM}</h1></div>
 
 function login() {
-    let userObject = {
-        name: `${user}`
-    }
-
     const promisse = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants",userObject);
 
     promisse.then(renderLogin);
     promisse.catch(deuErrado);
+
 }
 
 function renderLogin() {
@@ -23,6 +21,15 @@ function renderLogin() {
     <p><span class="time">(${getTime()})</span> <span class="person">${user}</span> entra na sala...</p>
     </div>
     `
+
+    setInterval(refreshLogin,5000);
+}
+
+function refreshLogin() {
+    const promisse = axios.post("https://mock-api.driven.com.br/api/v6/uol/status", userObject);
+    
+    promisse.catch(deuErrado);
+
 }
 
 
@@ -42,7 +49,7 @@ function sendMessage() {
 }
 
 function deuCerto() {
-    alert("ok");
+    console.log("ok");
 }
 
 function deuErrado() {
