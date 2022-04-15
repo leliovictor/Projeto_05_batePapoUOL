@@ -111,14 +111,11 @@ function sendMessage() {
     promisse.catch(deuErrado);
 }
 
-function getTime() {
-    const date = new Date();
-    const timer = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
-    return timer;
+function pressEnter(event) {
+    if (event.key === 'Enter') {
+        sendMessage();
+    }
 }
-
-
-
 
 //FUNCOES DE TESTE, REMOVER AO FIM DO PROJETO
 
