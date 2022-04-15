@@ -15,8 +15,8 @@
         <ion-icon name="people-sharp"></ion-icon>
     </header>
     <main>
-        <div class="login"><h1><span class="time">(09:21:45)</span>  <span class="person">João</span> entra na sala...</h1></div>
-        <div class="reserved"><h1><span class="time">(09:22:45)</span>  <span class="person">João</span> reservadamente para <span class="person">Maria</span>:  Oi gatinha quer tc?</h1></div>
+        <div class="status"><h1><span class="time">(09:21:45)</span>  <span class="person">João</span> entra na sala...</h1></div>
+        <div class="private_message"><h1><span class="time">(09:22:45)</span>  <span class="person">João</span> reservadamente para <span class="person">Maria</span>:  Oi gatinha quer tc?</h1></div>
         <div class="message"><h1><span class="time">(09:24:45)</span>  <span class="person">Maria</span> para <span class="person">João</span>:  Oi João :)</h1></div>
     </main>
 
@@ -24,15 +24,14 @@
     <footer>
         <div class="sendMessage">
             <input type="text" placeholder="Escreva aqui...">
-            <ion-icon name="paper-plane-outline"></ion-icon>
+            <ion-icon name="paper-plane-outline" onclick="sendMessage()"></ion-icon>
         </div>
         <div class="sendToReservation"></div>
-
     </footer>
 
 
-
-    <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script nomodule="" src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
     <script src="./scripts.js"></script>
 </body>
 </html>

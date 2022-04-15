@@ -65,17 +65,16 @@ main div:first-child {
     margin-top: 26px;
 }
 
-main .reserved {
+.private_message {
     background-color: #FFDEDE;
     line-height: 20px;
 }
 
-main .message {
+.message {
     background: #FFFFFF;
 }
 
-main .login,
-main .logout {
+.status {
     background: #DCDCDC;
 }
 
@@ -118,4 +117,5 @@ footer {
 
 .sendMessage ion-icon {
     font-size: 26px;
+    cursor: pointer;
 }
