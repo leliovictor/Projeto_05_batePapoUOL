@@ -12,6 +12,8 @@ const userObject = {name: `${user}`};
 //`<div class="message"><h1><span class="time">(${TEMPO})</span>  <span class="person">${FALANTE}</span> para <span class="person">${RECEBIDO}</span>:  ${MENSAGEM}</h1></div>
 
 //3 tipos de mensagem - status, message, private_message
+//<p>Enviando para Maria (reservadamente)</p> QUANDO FOR ENVIAR EM PRIVADO!!!
+//class .sendToReservation
 
 
 function login() {
@@ -73,7 +75,7 @@ function renderMessage(object) {
         `
     }
     
-    if(object.type === 'private_message') {
+    if(privateMessage(object)) {
         element.innerHTML += `
         <div class="private_message">
         <p><span class="time">(${object.time})</span> <span class="person">${object.from}</span> reservadamente para <span class="person">${object.to}</span>: ${object.text}</p>
@@ -84,6 +86,10 @@ function renderMessage(object) {
     LastMessageIntoView();
 }
 
+function privateMessage(object) {
+    return (object.type === 'private_message' && (object.to === user || object.to === 'Todos'));
+}
+
 function LastMessageIntoView() {
     const lastMessage = document.querySelector("main div:last-child");
     lastMessage.scrollIntoView();
@@ -91,16 +97,17 @@ function LastMessageIntoView() {
 
 function sendMessage() {
     const message = document.querySelector("input").value;
+    document.querySelector("input").value = "";
 
     const messageObject = {
-        from: "Luffy",
+        from: `${user}`,
         to: "Todos",
         text: `${message}`, 
         type: "message"
     }
     
     const promisse = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages",messageObject);
-    promisse.then(deuCerto);
+    promisse.then(getAllMessages);
     promisse.catch(deuErrado);
 }
 
@@ -114,8 +121,6 @@ function getTime() {
 
 
 //FUNCOES DE TESTE, REMOVER AO FIM DO PROJETO
-
-
 
 function deuCerto() {
     console.log("ok");

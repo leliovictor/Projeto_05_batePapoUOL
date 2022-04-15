@@ -87,14 +87,18 @@ footer {
     position: fixed;
     bottom: 0;
     left: 0;
-}
-
-.sendMessage {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 5%;
+
+}
+
+.sendMessage {
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .sendMessage input {
@@ -104,18 +108,30 @@ footer {
     font-size: 18px;
     line-height: 21px;
     width: 300px;
-
+    height: 40px;
+    
     color: #000000;
 
     border-style: none;
     outline: none;
+    resize: none;
 }
 
 .sendMessage input::placeholder {
     font-style: italic;
 }
 
-.sendMessage ion-icon {
+footer ion-icon {
     font-size: 26px;
     cursor: pointer;
+}
+
+.sendToReservation {
+    height: fit-content;
+    font-family: 'Roboto';
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 25px;
+    color: #BBBBBB;
+
 }
