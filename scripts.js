@@ -1,6 +1,7 @@
 const user = 'luffy'; //COM PROMPT E DEPOIS FAZER EM OUTRA TELA (BONUS)
 const userObject = {name: `${user}`};
 let typeMessage = 'message';
+let participantContact = 'Todos';
 
 //REMOVER O DEU ERRADO E DEU CERTO DE FUNCAO E DENTRO DOS CATCH NO FINAL DO PROJETO;
 //REMOVER FUNCOES DE TESTE, FINAL DO JS
@@ -30,6 +31,9 @@ function startChat() {
 
     getAllMessages();
     setInterval(getAllMessages,3000);
+
+    getAllParticipants();
+    setInterval(getAllParticipants,10000);
 }
 
 function refreshLogin() {
@@ -96,13 +100,37 @@ function LastMessageIntoView() {
     lastMessage.scrollIntoView();
 }
 
+function getAllParticipants() {
+    const promisse = axios.get("https://mock-api.driven.com.br/api/v6/uol/participants");
+
+    promisse.then(getParticipant);
+    promisse.catch(deuErrado);
+}
+
+function getParticipant(arrObject) {
+    const participant = arrObject.data;
+    participant.map(renderParticipant);
+}
+
+function renderParticipant(object) {
+    const element = document.querySelector(".participants");
+
+    element.innerHTML += `
+    <div id="${object.name}" onclick="selectParticipants(this)">
+        <ion-icon name="person-circle"></ion-icon>
+        <h2>${object.name}</h2>
+        <ion-icon name="checkmark-sharp" class="checkSelect"></ion-icon>
+    </div>
+    `
+}
+
 function sendMessage() {
     const message = document.querySelector("input").value;
     document.querySelector("input").value = "";
 
     const messageObject = {
         from: `${user}`,
-        to: "Todos",
+        to: `${participantContact}`,
         text: `${message}`, 
         type: `${typeMessage}`
     }
@@ -135,6 +163,23 @@ function selectVisibility(element) {
 
 function selectTypeMessage(element) {
     typeMessage = element.getAttribute("id");
+
+    //ADICIONAR AQUI A PESSOA QUE VAI MANDAR SE RESERVADO PARA COOLOCR EMBAIXO DO INPUT
+}
+
+function selectParticipants(element) {
+    const checkMark = element.querySelector(".checkSelect");
+    
+    if (!checkMark.classList.contains("enabled")) {
+        element.parentElement.querySelector(".enabled").classList.remove("enabled");
+        checkMark.classList.add("enabled");
+    }
+
+    selectParticipantToSendMessage(element);
+}
+
+function selectParticipantToSendMessage(element) {
+    participantContact = element.getAttribute("id");
 }
 
 //FUNCOES DE TESTE, REMOVER AO FIM DO PROJETO

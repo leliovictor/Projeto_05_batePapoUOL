@@ -19,9 +19,13 @@
         <section class="sideBar">
             <h1>Escolha um contato para enviar mensagem:</h1>
             <div class="participants">
-
+                <div id="Todos" onclick="selectParticipants(this)">
+                    <ion-icon name="people"></ion-icon>
+                    <h2>Todos</h2>
+                    <ion-icon name="checkmark-sharp" class="checkSelect enabled"></ion-icon>
+                </div>
             </div>
-            <h1>Escolha a visibilidade:</h1>
+            <h1 class="second-h1">Escolha a visibilidade:</h1>
             <div class="visibility">
                 <div id="message" onclick="selectVisibility(this)">
                     <ion-icon name="lock-open"></ion-icon>
