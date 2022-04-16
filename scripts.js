@@ -40,7 +40,6 @@ function refreshLogin() {
     const promisse = axios.post("https://mock-api.driven.com.br/api/v6/uol/status", userObject);
     
     promisse.catch(deuErrado);
-
 }
 
 function getAllMessages() {
@@ -92,7 +91,7 @@ function renderMessage(object) {
 }
 
 function privateMessage(object) {
-    return (object.type === 'private_message' && (object.to === user || object.to === 'Todos'));
+    return (object.type === 'private_message' && (object.from === user || object.to === user || object.to === 'Todos'));
 }
 
 function LastMessageIntoView() {
@@ -114,14 +113,19 @@ function getParticipant(arrObject) {
 
 function renderParticipant(object) {
     const element = document.querySelector(".participants");
-
+    if (CheckParticipantAlreadyOnline(object,element)) {
     element.innerHTML += `
-    <div id="${object.name}" onclick="selectParticipants(this)">
-        <ion-icon name="person-circle"></ion-icon>
-        <h2>${object.name}</h2>
-        <ion-icon name="checkmark-sharp" class="checkSelect"></ion-icon>
-    </div>
-    `
+        <div id="${object.name}" onclick="selectParticipants(this)">
+            <ion-icon name="person-circle"></ion-icon>
+            <h2>${object.name}</h2>
+            <ion-icon name="checkmark-sharp" class="checkSelect"></ion-icon>
+        </div>
+        `
+    }
+}
+
+function CheckParticipantAlreadyOnline(object,element) {
+    return (element.querySelector(`#${object.name}`) === null)
 }
 
 function sendMessage() {
@@ -137,7 +141,11 @@ function sendMessage() {
     
     const promisse = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages",messageObject);
     promisse.then(getAllMessages);
-    promisse.catch(deuErrado);
+    promisse.catch(refreshPage);
+}
+
+function refreshPage() {
+    return window.location.reload();
 }
 
 function pressEnter(event) {
@@ -164,7 +172,7 @@ function selectVisibility(element) {
 function selectTypeMessage(element) {
     typeMessage = element.getAttribute("id");
 
-    //ADICIONAR AQUI A PESSOA QUE VAI MANDAR SE RESERVADO PARA COOLOCR EMBAIXO DO INPUT
+    addSendToMessagePrivate();
 }
 
 function selectParticipants(element) {
@@ -180,6 +188,18 @@ function selectParticipants(element) {
 
 function selectParticipantToSendMessage(element) {
     participantContact = element.getAttribute("id");
+
+    addSendToMessagePrivate();
+}
+
+function addSendToMessagePrivate() {
+    if (typeMessage === 'private_message') {
+        document.querySelector(".sendToReservation").innerHTML = `
+        <p>Enviando para ${participantContact} (reservadamente)
+        `
+    } else {
+        document.querySelector(".sendToReservation").innerHTML ="";
+    }
 }
 
 //FUNCOES DE TESTE, REMOVER AO FIM DO PROJETO

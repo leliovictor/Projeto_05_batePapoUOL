@@ -155,6 +155,11 @@ nav {
     width: 69%;
     height: 100%;
     background-color: #FFFFFF;
+    overflow-y: scroll;
+}
+
+.sideBar::-webkit-scrollbar {
+    display: none;
 }
 
 .sideBar h1 {
@@ -200,6 +205,10 @@ nav {
 
 .sideBar div ion-icon:first-child {
     font-size: 22px;
+}
+
+.visibility {
+    margin-bottom: 50px;
 }
 
 .checkSelect {
