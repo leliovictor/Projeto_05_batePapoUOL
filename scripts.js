@@ -1,5 +1,6 @@
 const user = 'luffy'; //COM PROMPT E DEPOIS FAZER EM OUTRA TELA (BONUS)
 const userObject = {name: `${user}`};
+let typeMessage = 'message';
 
 //REMOVER O DEU ERRADO E DEU CERTO DE FUNCAO E DENTRO DOS CATCH NO FINAL DO PROJETO;
 //REMOVER FUNCOES DE TESTE, FINAL DO JS
@@ -103,7 +104,7 @@ function sendMessage() {
         from: `${user}`,
         to: "Todos",
         text: `${message}`, 
-        type: "message"
+        type: `${typeMessage}`
     }
     
     const promisse = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages",messageObject);
@@ -115,6 +116,25 @@ function pressEnter(event) {
     if (event.key === 'Enter') {
         sendMessage();
     }
+}
+
+function toggleSideBar() {
+    document.querySelector("nav").classList.toggle("disabled");
+}
+
+function selectVisibility(element) {
+    const checkMark = element.querySelector(".checkSelect");
+    
+    if (!checkMark.classList.contains("enabled")) {
+        element.parentElement.querySelector(".enabled").classList.remove("enabled");
+        checkMark.classList.add("enabled");
+    }
+
+    selectTypeMessage(element);
+}
+
+function selectTypeMessage(element) {
+    typeMessage = element.getAttribute("id");
 }
 
 //FUNCOES DE TESTE, REMOVER AO FIM DO PROJETO
