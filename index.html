@@ -10,11 +10,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
+    <section class="login">
+        <img src="./images/logo.png">
+        <div>
+            <input type="text" id="name" placeholder="Digite seu nome">
+            <button onclick="defineName()">Entrar</button>
+        </div>
+        <div class="loadScreen disabled">
+            <h1>FALTA O GIF AQUI DE CARREGAMENTO</h1>
+            <h1>Entrando...</h1>
+        </div>
+    </section>
     <header>
         <img src="./images/logo.png" >
         <ion-icon name="people-sharp" onclick="toggleSideBar()"></ion-icon>
     </header>
-    <nav class="navBar">
+    <nav class="navBar disabled">
         <div onclick="toggleSideBar()" class="blackScreen"></div>
         <section class="sideBar">
             <h1>Escolha um contato para enviar mensagem:</h1>

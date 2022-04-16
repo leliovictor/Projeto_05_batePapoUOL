@@ -1,32 +1,42 @@
-const user = 'luffy'; //COM PROMPT E DEPOIS FAZER EM OUTRA TELA (BONUS)
-const userObject = {name: `${user}`};
+let user;
+let userObject;
 let typeMessage = 'message';
 let participantContact = 'Todos';
 
 //REMOVER O DEU ERRADO E DEU CERTO DE FUNCAO E DENTRO DOS CATCH NO FINAL DO PROJETO;
 //REMOVER FUNCOES DE TESTE, FINAL DO JS
 
+function defineName() {
+    const element = document.querySelector("#name");
 
-//MENSAGEM: 
+    if (element.value === '') {
+        alert("Por favor, insira um nome de usuário!")
+    } else {
+        user = element.value;
+        userObject = {name: `${element.value}`};
 
-//`<div class="login"><h1><span class="time">(${TEMPO})</span>  <span class="person">${FALANTE}</span> entra na sala...</h1></div>`
-//`<div class="reserved"><h1><span class="time">(${TEMPO})</span>  <span class="person">${FALANTE}</span> reservadamente para <span class="person">${RECEBIDO}</span>: ${MENSAGEM}</h1></div>`
-//`<div class="message"><h1><span class="time">(${TEMPO})</span>  <span class="person">${FALANTE}</span> para <span class="person">${RECEBIDO}</span>:  ${MENSAGEM}</h1></div>
+        startLoadScreen(element);
 
-//3 tipos de mensagem - status, message, private_message
-//<p>Enviando para Maria (reservadamente)</p> QUANDO FOR ENVIAR EM PRIVADO!!!
-//class .sendToReservation
+        login();
+    }
+}
 
+function startLoadScreen(element) {
+    const loadScreen = document.querySelector(".loadScreen");
+    loadScreen.classList.toggle("disabled");
+    element.parentElement.classList.toggle("disabled");
+}
 
 function login() {
-    const promisse = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants",userObject);
+    const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants",userObject);
 
-    promisse.then(startChat);
-    promisse.catch(deuErrado);
-
+    promise.then(startChat);
+    promise.catch(refreshLogin);
 }
 
 function startChat() {
+    document.querySelector(".login").classList.add("disabled");
+
     setInterval(refreshLogin,5000);
 
     getAllMessages();
@@ -37,16 +47,16 @@ function startChat() {
 }
 
 function refreshLogin() {
-    const promisse = axios.post("https://mock-api.driven.com.br/api/v6/uol/status", userObject);
+    const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/status", userObject);
     
-    promisse.catch(deuErrado);
+    promise.catch(deuErrado);
 }
 
 function getAllMessages() {
-    const promisse = axios.get("https://mock-api.driven.com.br/api/v6/uol/messages");
+    const promise = axios.get("https://mock-api.driven.com.br/api/v6/uol/messages");
 
-    promisse.then(getMessage);
-    promisse.catch(deuErrado);
+    promise.then(getMessage);
+    promise.catch(deuErrado);
 }
 
 function getMessage(arrObject) {
@@ -100,10 +110,10 @@ function LastMessageIntoView() {
 }
 
 function getAllParticipants() {
-    const promisse = axios.get("https://mock-api.driven.com.br/api/v6/uol/participants");
+    const promise = axios.get("https://mock-api.driven.com.br/api/v6/uol/participants");
 
-    promisse.then(getParticipant);
-    promisse.catch(deuErrado);
+    promise.then(getParticipant);
+    promise.catch(deuErrado);
 }
 
 function getParticipant(arrObject) {
@@ -114,13 +124,13 @@ function getParticipant(arrObject) {
 function renderParticipant(object) {
     const element = document.querySelector(".participants");
     if (CheckParticipantAlreadyOnline(object,element)) {
-    element.innerHTML += `
-        <div id="${object.name}" onclick="selectParticipants(this)">
-            <ion-icon name="person-circle"></ion-icon>
-            <h2>${object.name}</h2>
-            <ion-icon name="checkmark-sharp" class="checkSelect"></ion-icon>
-        </div>
-        `
+        element.innerHTML += `
+            <div id="${object.name}" onclick="selectParticipants(this)">
+                <ion-icon name="person-circle"></ion-icon>
+                <h2>${object.name}</h2>
+                <ion-icon name="checkmark-sharp" class="checkSelect"></ion-icon>
+            </div>
+            `
     }
 }
 
@@ -139,9 +149,9 @@ function sendMessage() {
         type: `${typeMessage}`
     }
     
-    const promisse = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages",messageObject);
-    promisse.then(getAllMessages);
-    promisse.catch(refreshPage);
+    const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages",messageObject);
+    promise.then(getAllMessages);
+    promise.catch(refreshPage);
 }
 
 function refreshPage() {
@@ -210,8 +220,4 @@ function deuCerto() {
 
 function deuErrado() {
     alert('deu ruim');
-}
-
-function mostrar(objeto) {
-    console.log(objeto);
 }
