@@ -3,9 +3,6 @@ let userObject;
 let typeMessage = 'message';
 let participantContact = 'Todos';
 
-//REMOVER O DEU ERRADO E DEU CERTO DE FUNCAO E DENTRO DOS CATCH NO FINAL DO PROJETO;
-//REMOVER FUNCOES DE TESTE, FINAL DO JS
-
 function defineName() {
     const element = document.querySelector("#name");
 
@@ -31,7 +28,7 @@ function login() {
     const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants",userObject);
 
     promise.then(startChat);
-    promise.catch(refreshLogin);
+    promise.catch(invalidName);
 }
 
 function startChat() {
@@ -48,15 +45,12 @@ function startChat() {
 
 function refreshLogin() {
     const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/status", userObject);
-    
-    promise.catch(deuErrado);
 }
 
 function getAllMessages() {
     const promise = axios.get("https://mock-api.driven.com.br/api/v6/uol/messages");
 
     promise.then(getMessage);
-    promise.catch(deuErrado);
 }
 
 function getMessage(arrObject) {
@@ -113,7 +107,6 @@ function getAllParticipants() {
     const promise = axios.get("https://mock-api.driven.com.br/api/v6/uol/participants");
 
     promise.then(getParticipant);
-    promise.catch(deuErrado);
 }
 
 function getParticipant(arrObject) {
@@ -139,8 +132,8 @@ function CheckParticipantAlreadyOnline(object,element) {
 }
 
 function sendMessage() {
-    const message = document.querySelector("input").value;
-    document.querySelector("input").value = "";
+    const message = document.querySelector("#sendMessage").value;
+    document.querySelector("#sendMessage").value = "";
 
     const messageObject = {
         from: `${user}`,
@@ -151,11 +144,7 @@ function sendMessage() {
     
     const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages",messageObject);
     promise.then(getAllMessages);
-    promise.catch(refreshPage);
-}
-
-function refreshPage() {
-    return window.location.reload();
+    promise.catch(refreshLogin);
 }
 
 function pressEnter(event) {
@@ -212,12 +201,11 @@ function addSendToMessagePrivate() {
     }
 }
 
-//FUNCOES DE TESTE, REMOVER AO FIM DO PROJETO
-
-function deuCerto() {
-    console.log("ok");
+function refreshPage() {
+    return window.location.reload();
 }
 
-function deuErrado() {
-    alert('deu ruim');
+function invalidName() {
+    alert("Nome escolhido já em uso, por favor, escolha outro.")
+    window.location.reload();
 }

@@ -19,7 +19,7 @@ body {
     align-items: center;
 }
 
-.login img {
+.login > img {
     width: 130px;
     height: 92px;
     margin: 72px 0 94px 0;
@@ -69,6 +69,20 @@ body {
     line-height: 25px;
 
     color: #696969;
+}
+
+.loadScreen img {
+    width: fit-content;
+    height: fit-content;
+    margin-bottom: 5px;
+}
+
+.loadScreen h1 {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 25px;
 }
 
 
@@ -162,6 +176,7 @@ footer {
 }
 
 .sendMessage {
+    width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -174,7 +189,7 @@ footer {
     font-weight: 400;
     font-size: 18px;
     line-height: 21px;
-    width: 300px;
+    width: 80%;
     height: 40px;
 
     color: #000000;
@@ -191,6 +206,8 @@ footer {
 footer ion-icon {
     font-size: 26px;
     cursor: pointer;
+    width: 27px;
+    height: 27px;
 }
 
 .sendToReservation {
@@ -264,7 +281,8 @@ nav {
     margin-left: 9px;
 }
 
-.visibility>div, .participants>div {
+.visibility>div,
+.participants>div {
     display: flex;
     padding: 0 23px;
     align-items: center;

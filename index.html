@@ -17,7 +17,7 @@
             <button onclick="defineName()">Entrar</button>
         </div>
         <div class="loadScreen disabled">
-            <h1>FALTA O GIF AQUI DE CARREGAMENTO</h1>
+            <img src="./images/loading.gif">
             <h1>Entrando...</h1>
         </div>
     </section>
@@ -54,12 +54,11 @@
     <main></main>
     <footer>
         <div class="sendMessage">
-            <input placeholder="Escreva aqui..." onkeydown="pressEnter(event)">
+            <input placeholder="Escreva aqui..." onkeydown="pressEnter(event)" id="sendMessage">
             <div class="sendToReservation"></div>
         </div>
         <ion-icon name="paper-plane-outline" onclick="sendMessage()"></ion-icon>
     </footer>
-
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
