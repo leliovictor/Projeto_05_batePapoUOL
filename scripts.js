@@ -118,7 +118,7 @@ function renderParticipant(object) {
     const element = document.querySelector(".participants");
     if (CheckParticipantAlreadyOnline(object,element)) {
         element.innerHTML += `
-            <div id="${object.name}" onclick="selectParticipants(this)">
+            <div data-name="${object.name}" onclick="selectParticipants(this)">
                 <ion-icon name="person-circle"></ion-icon>
                 <h2>${object.name}</h2>
                 <ion-icon name="checkmark-sharp" class="checkSelect"></ion-icon>
@@ -127,24 +127,26 @@ function renderParticipant(object) {
     }
 }
 
-function CheckParticipantAlreadyOnline(object,element) {
-    return (element.querySelector(`#${object.name}`) === null)
+function CheckParticipantAlreadyOnline(object,element) {  
+    return (element.querySelector(`[data-name="${object.name}"]`) === null)
 }
 
 function sendMessage() {
-    const message = document.querySelector("#sendMessage").value;
-    document.querySelector("#sendMessage").value = "";
+    if (document.querySelector("#sendMessage").value !== "") {
+        const message = document.querySelector("#sendMessage").value;
+        document.querySelector("#sendMessage").value = "";
 
-    const messageObject = {
-        from: `${user}`,
-        to: `${participantContact}`,
-        text: `${message}`, 
-        type: `${typeMessage}`
+        const messageObject = {
+            from: `${user}`,
+            to: `${participantContact}`,
+            text: `${message}`, 
+            type: `${typeMessage}`
+        }
+        
+        const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages",messageObject);
+        promise.then(getAllMessages);
+        promise.catch(refreshLogin);
     }
-    
-    const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages",messageObject);
-    promise.then(getAllMessages);
-    promise.catch(refreshLogin);
 }
 
 function pressEnter(event) {
@@ -186,7 +188,7 @@ function selectParticipants(element) {
 }
 
 function selectParticipantToSendMessage(element) {
-    participantContact = element.getAttribute("id");
+    participantContact = element.getAttribute("data-name");
 
     addSendToMessagePrivate();
 }
