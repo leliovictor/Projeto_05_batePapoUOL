@@ -146,6 +146,10 @@ main div:first-child {
     margin-top: 26px;
 }
 
+main p {
+    word-break: break-all;
+}
+
 .private_message {
     background-color: #FFDEDE;
     line-height: 20px;
