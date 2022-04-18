@@ -112,13 +112,14 @@ function getAllParticipants() {
 function getParticipant(arrObject) {
     const participant = arrObject.data;
     participant.map(renderParticipant);
+    checkWhoLogoff(participant);
 }
 
 function renderParticipant(object) {
     const element = document.querySelector(".participants");
     if (CheckParticipantAlreadyOnline(object,element)) {
         element.innerHTML += `
-            <div data-name="${object.name}" onclick="selectParticipants(this)">
+            <div class="participant" data-name="${object.name}" onclick="selectParticipants(this)">
                 <ion-icon name="person-circle"></ion-icon>
                 <h2>${object.name}</h2>
                 <ion-icon name="checkmark-sharp" class="checkSelect"></ion-icon>
@@ -129,6 +130,40 @@ function renderParticipant(object) {
 
 function CheckParticipantAlreadyOnline(object,element) {  
     return (element.querySelector(`[data-name="${object.name}"]`) === null)
+}
+
+function checkWhoLogoff(objectList) {
+    const contactList = document.querySelectorAll(".participant");
+
+    for (let i = 0; i < contactList.length;i++) {
+        let logoff = true;
+        const contact = contactList[i].getAttribute("data-name");
+        for (let j = 0; j < objectList.length; j++) {
+            if (contact === objectList[j].name) {
+                logoff = false;
+            }
+        }
+        
+        if (logoff) {
+            removeContact(contact);
+        }
+    }
+}
+
+function removeContact(contact) {
+    checkMarkOnContact(contact);
+    document.querySelector(`[data-name='${contact}']`).remove();
+}
+
+function checkMarkOnContact(contact) {
+    const contactHTML = document.querySelector(`[data-name='${contact}']`);
+    if (contactHTML.querySelector(".enabled") !== null) {
+        const contactAll = document.querySelector("[data-name=Todos]");
+        contactAll.querySelector(".checkSelect").classList.add("enabled");
+
+        participantContact = "Todos";
+        addSendToMessagePrivate();
+    }
 }
 
 function sendMessage() {
